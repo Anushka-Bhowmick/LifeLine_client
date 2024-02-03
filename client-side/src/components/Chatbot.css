@@ -78,3 +78,34 @@
   background-color: #640404;
 }
 
+.chatbot-messages {
+  color: #FFF3F3; 
+}
+
+.chatbot-messages .plasma-bot {
+  color: #FFF; 
+  font-weight: bold; }
+
+
+.chatbot-messages {
+  overflow-y: scroll;
+  scrollbar-width: thin; 
+  scrollbar-color: #8C1303 rgba(128, 128, 128, 0.05); 
+}
+
+.chatbot-messages::-webkit-scrollbar {
+  width: 8px; 
+}
+
+.chatbot-messages::-webkit-scrollbar-thumb {
+  background-color: #8C1303; 
+  border-radius: 8px; 
+}
+
+.chatbot-messages::-webkit-scrollbar-track {
+  background-color: rgb(255, 255, 255);
+}
+
+.chatbot-messages::-webkit-scrollbar-button {
+  display: none; 
+}

@@ -183,7 +183,7 @@ const Chatbot = () => {
   return (
     <div className="chatbot-container">
       <div className="chatbot-messages">
-        Plasma Bot:
+      <span className="plasma-bot">Plasma Bot</span>
         {messages.map((message, index) => (
           <div
             key={index}
