@@ -17,8 +17,7 @@ const Hero = () => {
         <h1 className="hero-title">Welcome to LifeLine</h1>
         <p className="hero-description">Empowering Life, One Drop at a Time – Your Beacon of Hope in Blood Donation.</p>
 
-        <button onClick={handleChatButtonClick} className="hero-btn secondary-btn">Donate</button>
-        <button onClick={handleChatButtonClick} className="hero-btn secondary-btn">Receive</button>
+        
       </div>
     </section>
   );

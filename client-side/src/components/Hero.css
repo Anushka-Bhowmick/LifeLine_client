@@ -47,5 +47,10 @@
     background-color: #940a05c2; /* Change to your secondary color */
     color: #fff;
     margin-left: 12px;
+    position: absolute;
+    top:70%;
+    left:51%;
   }
+
+
   
