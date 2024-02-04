@@ -21,7 +21,7 @@ public class ReceiveController {
     }
 
 
-    @GetMapping("/{pin}")
+    @PutMapping
     public ResponseEntity<List<Receive>> getSingleDonors(@PathVariable String pin)
     {
         return new ResponseEntity<List<Receive>>(receiveService.findByPin(pin), HttpStatus.OK);
