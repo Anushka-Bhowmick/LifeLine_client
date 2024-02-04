@@ -38,6 +38,7 @@ const Chatbot = () => {
     navigatorLocation.getCurrentPosition(
       (position) => {
         const { latitude, longitude } = position.coords;
+      
         setLocation({ latitude, longitude });
       },
       (error) => {
@@ -59,14 +60,14 @@ const Chatbot = () => {
       case '/start':
         welcomeMessage();
         break;
-     case '/location':
+      case '/location':
         getCurrentPosition();
         break;
       case '/donate':
         await fetchDonorsAndShowMap();
         break;
       case '/exit':
-        console.log('Exiting Goodbye!');
+        console.log('Exiting PlasmaBot. Goodbye!');
         break;
       case '/receive':
         const bloodGroup = inputDetails[1];
@@ -84,37 +85,37 @@ const Chatbot = () => {
     }
   };
 
+  const fetchDonorsAndShowMap = async () => {
+    try {
+      const response = await listDonors();
+      setDonorData(response.data);
+      addMessage('Donor data fetched successfully!');
+      showDonorsOnMap(response.data);
+    } catch (error) {
+      console.error('Error fetching donor data:', error.message);
+      addMessage('Error fetching donor data. Please try again.', true);
+    }
+  };
+
   const fetchAndShowRecipientDetailsByBloodGroup = async (bloodGroup) => {
     try {
       const response = await listRecipients();
       const allRecipientData = response.data;
-  
+
       if (allRecipientData && allRecipientData.length > 0) {
         const matchingRecipients = allRecipientData.filter(
           (recipient) => recipient.availability && recipient.availability[bloodGroup] > 0
         );
-  
+
         setRecipientData(matchingRecipients);
-  
         if (matchingRecipients.length > 0) {
-          addMessage(`Recipient details for blood group ${bloodGroup}:`);
+         
           matchingRecipients.forEach((recipient) => {
             const recipientDetailsMessage = `Name: ${recipient.name}, Coordinates: ${recipient.location.coordinates[1]}, ${recipient.location.coordinates[0]}, Availability: ${recipient.availability[bloodGroup]}`;
-            addMessage(recipientDetailsMessage, true);
+            
           });
         } else {
-          const compatibleBloodGroups = findCompatibleBloodGroups(bloodGroup);
-  
-          if (compatibleBloodGroups.length > 0) {
-            addMessage(`Desired blood group ${bloodGroup} not found. Looking for compatible blood groups: ${compatibleBloodGroups.join(', ')}.`);
-            
-            // Loop through compatible blood groups and fetch recipients for each
-            for (const compatibleGroup of compatibleBloodGroups) {
-              await fetchAndShowRecipientDetailsByBloodGroup(compatibleGroup);
-            }
-          } else {
-            addMessage(`No recipients available for blood group ${bloodGroup} or compatible blood groups.`);
-          }
+          addMessage(`No recipients available for blood group ${bloodGroup}.`);
         }
       } else {
         addMessage('No recipient data available.');
@@ -124,8 +125,30 @@ const Chatbot = () => {
       addMessage('Error fetching recipient data. Please try again.', true);
     }
   };
-  
-  
+
+  const findCompatibleBloodGroups = (bloodGroup) => {
+    switch (bloodGroup) {
+      case 'A+':
+        return ['A+', 'O+'];
+      case 'B+':
+        return ['B+', 'O+'];
+      case 'AB+':
+        return ['AB+', 'AB-', 'A+', 'A-', 'B+', 'B-', 'O+', 'O-'];
+      case 'O+':
+        return ['O+'];
+      case 'A-':
+        return ['A+', 'A-', 'O+', 'O-'];
+      case 'B-':
+        return ['B+', 'B-', 'O+', 'O-'];
+      case 'AB-':
+        return [ 'AB-',  'A-', 'B-',  'O-'];
+      case 'O-':
+        return ['O-'];
+ 
+      default:
+        return [];
+    }
+  };
 
   const showDonorsOnMap = (donors) => {
     if (donors && donors.length > 0) {
@@ -152,15 +175,21 @@ const Chatbot = () => {
       setLocation({
         latitude: userCoords.latitude,
         longitude: userCoords.longitude,
-      });   
+      });
+
+      nearestDonors.forEach((donor) => {
+        const donorCoordinatesMessage = `Donor Coordinates: ${donor.location.coordinates[1]}, ${donor.location.coordinates[0]}, Phone: ${donor.phone}`;
+      });
     } else {
       addMessage('No donor data available.');
     }
   };
 
   const welcomeMessage = () => {
-    addMessage('Welcome to the Chatbot!');
-    addMessage("Enter '/location' . '/donate' . '/receive'  ");
+    addMessage('Welcome to the PlasmaBot!');
+    addMessage(" '/location' to send your current location.");
+    addMessage(" '/donate' to donate blood.");
+    addMessage(" '/receive' to receive blood");
   };
 
   const addMessage = (text, user = false) => {
@@ -171,30 +200,6 @@ const Chatbot = () => {
     welcomeMessage();
   }, []);
 
-  const findCompatibleBloodGroups = (bloodGroup) => {
-    switch (bloodGroup) {
-      case 'A+':
-        return ['A+', 'O+'];
-      case 'B+':
-        return ['B+', 'O+'];
-      case 'AB+':
-        return ['AB+', 'AB-', 'A+', 'A-', 'B+', 'B-', 'O+', 'O-'];
-      case 'O+':
-        return ['O+'];
-      case 'A-':
-        return ['A+', 'A-', 'O+', 'O-'];
-      case 'B-':
-        return ['B+', 'B-', 'O+', 'O-'];
-      case 'AB-':
-        return [ 'AB-',  'A-', 'B-',  'O-'];
-      case 'O-':
-        return ['O-'];
- 
-      default:
-        return [];
-    }
-  };
-  
   return (
     <div className="chatbot-container">
       <div className="chatbot-messages">

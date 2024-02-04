@@ -82,15 +82,20 @@
   color: #FFF3F3; 
 }
 
+span{
+  text-align: center;
+}
+
 .chatbot-messages .plasma-bot {
   color: #FFF; 
-  font-weight: bold; }
+  font-weight: bold;
+  text-align: center;
+}
 
 
 .chatbot-messages {
   overflow-y: scroll;
-  scrollbar-width: thin; 
-  scrollbar-color: #8C1303 rgba(128, 128, 128, 0.05); 
+  scrollbar-color: #e6e2e2 rgba(230, 207, 207, 0.05); 
 }
 
 .chatbot-messages::-webkit-scrollbar {
