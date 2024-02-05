@@ -1,5 +1,3 @@
-// Chatbot.jsx
-
 import React, { useState, useEffect } from 'react';
 import Map from './Map';
 import 'leaflet/dist/leaflet.css';
@@ -40,8 +38,7 @@ const Chatbot = () => {
     navigatorLocation.getCurrentPosition(
       (position) => {
         const { latitude, longitude } = position.coords;
-        const coordinatesMessage = `Your current coordinates are: ${latitude}, ${longitude}`;
-        addMessage(coordinatesMessage, true);
+      
         setLocation({ latitude, longitude });
       },
       (error) => {
@@ -63,14 +60,14 @@ const Chatbot = () => {
       case '/start':
         welcomeMessage();
         break;
-      case '/getlocation':
+      case '/location':
         getCurrentPosition();
         break;
-      case '/getdonors':
+      case '/donate':
         await fetchDonorsAndShowMap();
         break;
       case '/exit':
-        console.log('Exiting Chatbot. Goodbye!');
+        console.log('Exiting PlasmaBot. Goodbye!');
         break;
       case '/receive':
         const bloodGroup = inputDetails[1];
@@ -112,10 +109,10 @@ const Chatbot = () => {
 
         setRecipientData(matchingRecipients);
         if (matchingRecipients.length > 0) {
-          addMessage(`Recipient details for blood group ${bloodGroup}:`);
+         
           matchingRecipients.forEach((recipient) => {
             const recipientDetailsMessage = `Name: ${recipient.name}, Coordinates: ${recipient.location.coordinates[1]}, ${recipient.location.coordinates[0]}, Availability: ${recipient.availability[bloodGroup]}`;
-            addMessage(recipientDetailsMessage, true);
+            
           });
         } else {
           addMessage(`No recipients available for blood group ${bloodGroup}.`);
@@ -126,6 +123,30 @@ const Chatbot = () => {
     } catch (error) {
       console.error('Error fetching recipient data:', error.message);
       addMessage('Error fetching recipient data. Please try again.', true);
+    }
+  };
+
+  const findCompatibleBloodGroups = (bloodGroup) => {
+    switch (bloodGroup) {
+      case 'A+':
+        return ['A+', 'O+'];
+      case 'B+':
+        return ['B+', 'O+'];
+      case 'AB+':
+        return ['AB+', 'AB-', 'A+', 'A-', 'B+', 'B-', 'O+', 'O-'];
+      case 'O+':
+        return ['O+'];
+      case 'A-':
+        return ['A+', 'A-', 'O+', 'O-'];
+      case 'B-':
+        return ['B+', 'B-', 'O+', 'O-'];
+      case 'AB-':
+        return [ 'AB-',  'A-', 'B-',  'O-'];
+      case 'O-':
+        return ['O-'];
+ 
+      default:
+        return [];
     }
   };
 
@@ -158,7 +179,6 @@ const Chatbot = () => {
 
       nearestDonors.forEach((donor) => {
         const donorCoordinatesMessage = `Donor Coordinates: ${donor.location.coordinates[1]}, ${donor.location.coordinates[0]}, Phone: ${donor.phone}`;
-        addMessage(donorCoordinatesMessage, true);
       });
     } else {
       addMessage('No donor data available.');
@@ -166,10 +186,10 @@ const Chatbot = () => {
   };
 
   const welcomeMessage = () => {
-    addMessage('Welcome to the Chatbot!');
-    addMessage("Enter '/getlocation' to get your current location.");
-    addMessage("Enter '/getdonors' to fetch donor data.");
-    addMessage("Enter '/receive' to fetch details for recipients with a specific blood group.");
+    addMessage('Welcome to the PlasmaBot!');
+    addMessage(" '/location' to send your current location.");
+    addMessage(" '/donate' to donate blood.");
+    addMessage(" '/receive' to receive blood");
   };
 
   const addMessage = (text, user = false) => {

@@ -82,9 +82,15 @@
   color: #FFF3F3; 
 }
 
+span{
+  text-align: center;
+}
+
 .chatbot-messages .plasma-bot {
   color: #FFF; 
-  font-weight: bold; }
+  font-weight: bold;
+  text-align: center;
+}
 
 
 .chatbot-messages {
