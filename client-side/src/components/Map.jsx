@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import React from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
 import { ToastContainer, toast } from 'react-toastify';
@@ -97,7 +98,7 @@ const Map = ({ location, donorData, recipientData, bloodGroupToCheck }) => {
                             </Popup>
                         </Marker>
                     ))}
-
+                    
                 {recipientData &&
                     recipientData.map((recipient, index) => (
                         <Marker

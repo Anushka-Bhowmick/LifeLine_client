@@ -1,4 +1,4 @@
-package com.ai_legion.LifeLine;
+package com.ailegion.BloodBank;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,11 +19,11 @@ public class ReceiveController {
     public ResponseEntity<List<Receive>> getDonors() {
         return new ResponseEntity<List<Receive>>(receiveService.allRecipients(), HttpStatus.OK);
     }
-    @PutMapping
+
+
+    @GetMapping("/{pin}")
     public ResponseEntity<List<Receive>> getSingleDonors(@PathVariable String pin)
     {
         return new ResponseEntity<List<Receive>>(receiveService.findByPin(pin), HttpStatus.OK);
     }
 }
-
-

@@ -1,20 +1,20 @@
-package com.ai_legion.LifeLine;
+package com.ailegion.BloodBank;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.geo.GeoJson;
 import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
 import org.springframework.data.mongodb.core.mapping.Document;
-import java.util.List;
-@Document(collection="donors")
+
+
+@Document(collection = "recipients")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Donate {
-
+public class Receive {
     @Id
     private ObjectId _id;
     private String name;
@@ -22,6 +22,10 @@ public class Donate {
     private String phone;
     private String email;
     private String category;
+    private Object availability;
+    private String pin;
+    private GeoJsonPoint location;
+
 
     public ObjectId get_id() {
         return _id;
@@ -71,20 +75,16 @@ public class Donate {
         this.category = category;
     }
 
-    public String getType() {
-        return type;
+    public Object getAvailability() {
+        return availability;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setAvailability(Object availability) {
+        this.availability = availability;
     }
 
     public String getPin() {
         return pin;
-    }
-
-    public void setPin(String pin) {
-        this.pin = pin;
     }
 
     public GeoJsonPoint getLocation() {
@@ -95,8 +95,9 @@ public class Donate {
         this.location = location;
     }
 
-    private String type;
-    private String pin;
-    private GeoJsonPoint location;
+    public void setPin(String pin) {
+        this.pin = pin;
+    }
+
 
 }
