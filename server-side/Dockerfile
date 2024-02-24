@@ -1,7 +1,11 @@
-FROM openjdk:17-jdk-alpine
+FROM node:alpine
 
-ARG JAR_FILE= target/*.jar
+WORKDIR /app
+COPY ./package.json /app
+RUN npm i
 
-COPY ./target/BloodBank-0.0.1-SNAPSHOT.jar app.jar
+COPY . /app
 
-ENTRYPOINT [ "java","-jar","/app.jar" ]
+EXPOSE 3000
+
+CMD ["npm", "run", "dev"]
