@@ -1,4 +1,4 @@
-import logo from '../assets/vite.svg';
+import logo from '../assets/LIFELINE.png';
 import './Header.css';
 
 const Header = () => {
