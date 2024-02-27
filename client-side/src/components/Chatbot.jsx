@@ -201,9 +201,10 @@ const Chatbot = () => {
   }, []);
 
   return (
-    <div className="chatbot-container">
+    <div className="respons">
+      <div className="chatbot-container">
       <div className="chatbot-messages">
-      <span className="plasma-bot">Plasma Bot</span>
+      <span className="plasma-bot"><div className="align">Plasma Bot</div></span>
         {messages.map((message, index) => (
           <div
             key={index}
@@ -230,6 +231,7 @@ const Chatbot = () => {
         />
         <button type="submit">Send</button>
       </form>
+    </div>
     </div>
   );
 };

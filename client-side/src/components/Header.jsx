@@ -1,5 +1,4 @@
-import React from 'react';
-import logo from '../assets/LIFELINE.png';
+import logo from '../assets/vite.svg';
 import './Header.css';
 
 const Header = () => {
@@ -7,6 +6,17 @@ const Header = () => {
     <div className="header">
       <img src={logo} alt="Logo" className="logo" />
       <span className="title">LifeLine</span>
+      <div className="hamburger">
+          <div className="cont-line">
+            <div className="line"></div>
+            <div className="line"></div>
+            <div className="line"></div>
+            <div className="fullnavscreen">
+            </div>
+          </div>
+          
+      </div>
+      
     </div>
   );
 };

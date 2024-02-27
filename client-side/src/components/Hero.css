@@ -4,6 +4,7 @@
   display: flex;
   align-items: center;
   padding: 40px;
+  width: 100%;
 }
 
 .hero-images {
@@ -16,7 +17,7 @@
   height: auto;
   margin-bottom: 16px;
   object-fit: cover; /* This property ensures the image retains its aspect ratio */
-border-radius: 8px;
+  border-radius: 8px;
 }
 
 .hero-text {
@@ -33,7 +34,7 @@ border-radius: 8px;
 
 .hero-description {
   font-size: 1.5rem;
-  margin-bottom: 24px;
+  margin-bottom: 8vw;
 }
 
 .hero-btn {
@@ -43,11 +44,126 @@ border-radius: 8px;
   font-size: 1rem;
   cursor: pointer;
 }
+
 .secondary-btn {
   background-color: #940a05c2; /* Change to your secondary color */
   color: #fff;
+  border:none;
   margin-left: 12px;
-  position: absolute;
-  top:70%;
-  left:51%;
 }
+.alt{
+  display: none;
+}
+
+@media (max-width: 1440px) {
+  .secondary-btn {
+    position: relative;
+    top:-6vw;
+    left:-1vw;
+  }
+}
+
+/* @media (max-width: 1024px) {
+  .secondary-btn {
+    left: 52.5%;
+  }
+} */
+
+@media (max-width: 768px) {
+  .hero-container {
+    display: block;
+    padding: 24px;
+  } 
+  .hero-description{
+    font-size: 3vw;
+  }
+  /* .secondary-btn {
+    left: 6.8%;
+    top: 73vw;
+  } */
+}
+
+@media (max-width: 2560px) {
+  .hero-title {
+    font-size: 2.5vw;
+  }
+  .hero-description {
+    font-size: 1.5vw;
+  }
+  .secondary-btn{
+    top:-6vw;
+    left:-.8vw;
+    position: relative;
+  }
+}
+
+/* @media (max-width: 1199.8px) {
+  .secondary-btn {
+    top: 35vw;
+  }
+} */
+
+@media (max-width: 426px) {
+  .hero-title,
+  .hero-description {
+    display: none;
+  }
+  .secondary-btn{
+    position: relative;
+    width:fit-content;
+    font-size: 2vw;
+    display: none;
+  }
+  .alt{
+    display: block;
+    background-color: #940a05c2; /* Change to your secondary color */
+    color: #fff;
+    border:none;
+    position: absolute;
+    font-size: 3.5vw;
+    top:0;
+    right:3vw;
+    margin-top:.5vw;
+    margin-right:2vw;
+
+  }
+  .alt:after{
+    content: "Sign in";
+  }
+  .hero-images {
+    display: flex;
+    width:100vw;
+    align-items: center;
+    justify-content: center;
+    align-items: center;
+    justify-content: center;
+  }
+  .hero-image {
+    width: 24vw;
+  }
+}
+@media(max-width:375px)
+{
+  .alt{
+    margin-top:2vw;
+  }
+}
+@media ( max-width:320px)
+{
+  .alt{
+    margin-top:3vw;
+
+  }
+}
+/* hero.css */
+
+@media (max-width:1024px)
+{
+  .hero-title{
+    font-size: 4vw;
+  }
+  .hero-description{
+    font-size: 2vw;
+  }
+}
+
